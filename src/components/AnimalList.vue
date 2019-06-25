@@ -14,36 +14,51 @@
         <input type="date" id="datum_rodjenja" v-model="newAnimal.datum_rodjenja" required/>
       </div>
       <div>
+        <select v-model="newAnimal.sector">
+          <option v-for="(sector,index) in sectors" :key="index">
+            {{ sector }}
+          </option>
+        </select>
+      </div>
+      <div>
         <button type="submit">Add animal</button>
       </div>
     </form>
     <ul>
       <li v-for="(animal,index) in animals" :key="index">
-        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja ? animal.datum_rodjenja : 'Nepoznat' }}
+        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja ? animal.datum_rodjenja : 'Nepoznat' }}, sektor : {{ animal.sector ? animal.sector : 'Nije smestena' }}
         <button @click="removeAnimal(index)"> Remove </button>
         <button @click="moveToTop(index)"> Move to top </button>
       </li>
     </ul>
+    <div>
+        <ul>
+          <li v-for="(sector,index) in sectors" :key="index">
+            {{ sector }}
+            <button @click="showAnimalsSector(sector)">Vidi listu zivotinja </button>
+          </li>
+        </ul>
+    </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'AnimalList',
-  props: {
-    msg: String
-  },
 
   data (){
     return {
       newAnimal: this.getDefault(),
 
       animals: [
-        { vrsta: 'pas', ime: 'Boni', datum_rodjenja: '24-09-2005' },
-        { vrsta: 'slon', ime: 'Ganesh', datum_rodjenja: '06-06-2006'},
-        { vrsta: 'lav', ime: 'Scar', datum_rodjenja: '05-02-2001' },
-        { vrsta: 'vrana', ime: 'Ajnstajn', datum_rodjenja: '09-09-2009'},
-        { vrsta: 'vuk', ime: 'Ponos', datum_rodjenja: '02-02-2001'}
+        { vrsta: 'pas', ime: 'Boni', datum_rodjenja: '24-09-2005' , sector: 'sisari'},
+        { vrsta: 'slon', ime: 'Ganesh', datum_rodjenja: '06-06-2006', sector: 'sisari'},
+        { vrsta: 'lav', ime: 'Scar', datum_rodjenja: '05-02-2001', sector: 'sisari'},
+        { vrsta: 'vrana', ime: 'Ajnstajn', datum_rodjenja: '09-09-2009', sector: 'ptice'},
+        { vrsta: 'vuk', ime: 'Ponos', datum_rodjenja: '02-02-2001', sector: 'sisari'}
+      ],
+
+      sectors: [
+        'sisari', 'ptice', 'glavonosci', 'dupljari', 'arahnidi', 'reptili'
       ]
     }
   },
@@ -68,8 +83,17 @@ export default {
       return {
         vrsta: '',
         ime: '',
-        datum_rodjenja: ''
+        datum_rodjenja: '',
+        sector : ''
       }
+    },
+
+    showAnimalsSector (sector) {
+      let sectorAnimals = this.animals.filter(animal => animal.sector === sector).map(animal=>animal.ime);
+
+      // let nameString = ''
+      // console.log(sectorAnimals);
+      window.alert(sectorAnimals,join(', '))
     }
   }
 }
@@ -78,6 +102,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 li {
-  list-style: lower-latin;
+  list-style: none;
 }
 </style>
