@@ -1,7 +1,8 @@
 <template>
     <ul>
       <li v-for="(animal,index) in animals" :key="index">
-        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja ? animal.datum_rodjenja : 'Nepoznat' }}  
+        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja ? animal.datum_rodjenja : 'Nepoznat' }}
+        <button @click="removeAnimal(index)"> Remove </button> 
       </li>
     </ul>
 </template>
@@ -23,6 +24,12 @@ export default {
         { vrsta: 'vuk', ime: 'Ponos', datum_rodjenja: '02-02-2001'}
       ]
     }
+  },
+
+  methods : {
+    removeAnimal (index) {
+      this.animals.splice(index,1)
+    },
   }
 }
 </script>
