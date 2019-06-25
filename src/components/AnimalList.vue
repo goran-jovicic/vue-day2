@@ -1,7 +1,7 @@
 <template>
     <ul>
       <li v-for="(animal,index) in animals" :key="index">
-        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja }}  
+        Vrsta : {{ animal.vrsta }} , ime : {{ animal.ime}} , datum rodjenja : {{ animal.datum_rodjenja ? animal.datum_rodjenja : 'Nepoznat' }}  
       </li>
     </ul>
 </template>
@@ -20,7 +20,7 @@ export default {
         { vrsta: 'slon', ime: 'Ganesh', datum_rodjenja: '06-06-2006'},
         { vrsta: 'lav', ime: 'Scar', datum_rodjenja: '05-02-2001' },
         { vrsta: 'vrana', ime: 'Ajnstajn', datum_rodjenja: '09-09-2009'},
-        { vrsta: 'vuk', ime: 'Ponos', datum_rodjenja: '05-06-2011'}
+        { vrsta: 'vuk', ime: 'Ponos', datum_rodjenja: '02-02-2001'}
       ]
     }
   }
